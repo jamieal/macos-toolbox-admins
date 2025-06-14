@@ -1,9 +1,18 @@
 #!/bin/bash
 
-#!/bin/bash
-
 # install_newscript.sh
-# Installs the newscript function to your shell configuration
+# Installs a newscript function to your shell configuration
+
+# Check if zsh is installed
+if ! command -v zsh &> /dev/null; then
+    echo "Zsh is not installed. Please install zsh first."
+    exit 1
+fi
+
+# Check if .zshrc exists, create if it doesn't
+if [ ! -f ~/.zshrc ]; then
+    touch ~/.zshrc
+fi
 
 # Add newscript function to .zshrc
 echo '# NewScript function for creating executable scripts
@@ -17,11 +26,10 @@ newscript() {
     echo "Created executable $shell script: $filename"
 }' >> ~/.zshrc
 
-# Reload shell configuration
-source ~/.zshrc
-
 echo "✅ newscript function installed!"
+echo "📝 Restart your terminal or run 'source ~/.zshrc' to use it"
 echo "Usage:"
 echo "  newscript myscript        # Creates bash script"
 echo "  newscript myscript zsh    # Creates zsh script"
 
+exit 0
